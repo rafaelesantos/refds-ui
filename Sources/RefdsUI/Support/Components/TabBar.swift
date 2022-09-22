@@ -36,7 +36,7 @@ public struct TabBar: View {
             }
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity, maxHeight: 96)
-            .background(colorScheme == .dark ? Color.whiteDarker : Color.whiteActive)
+            .background(colorScheme == .dark ? Color.whiteDarker : Color(UIColor.secondarySystemBackground))
             .overlay(
                 Rectangle()
                     .fill(color)
