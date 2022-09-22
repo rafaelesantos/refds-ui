@@ -36,7 +36,7 @@ public struct TabBar: View {
             }
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity, maxHeight: 96)
-            .background(colorScheme == .dark ? Color.whiteDarker : Color(UIColor.secondarySystemBackground))
+            .background(Color.whiteDarker)
             .overlay(
                 Rectangle()
                     .fill(color)
@@ -46,9 +46,10 @@ public struct TabBar: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .offset(x: selectedX)
             )
-            .backgroundStyle(cornerRadius: BorderRadius.medium)
+            .backgroundStyle(cornerRadius: BorderRadius.large)
             .frame(maxHeight: .infinity, alignment: .bottom)
             .edgesIgnoringSafeArea(.bottom)
+            .shadow(radius: .xSmall)
         }
         .onAppear {
             guard let tabColor = tabs.first?.color else { return }
