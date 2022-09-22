@@ -49,7 +49,7 @@ public struct TabBar: View {
             .backgroundStyle(cornerRadius: BorderRadius.large)
             .frame(maxHeight: .infinity, alignment: .bottom)
             .edgesIgnoringSafeArea(.bottom)
-            .shadow(radius: .xSmall)
+            .shadow(color: colorScheme == .light ? .secondary : .clear, radius: .xSmall)
         }
         .onAppear {
             guard let tabColor = tabs.first?.color else { return }
