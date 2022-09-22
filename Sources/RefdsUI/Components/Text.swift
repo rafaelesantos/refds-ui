@@ -16,10 +16,12 @@ public struct Text: View {
     let isSelectable: Bool
     let kerning: CGFloat
     let strikethrough: Bool
+    let lineLimit: Int
 
     public var body: some View {
         if content.isEmpty == false {
             text(sizeCategory: sizeCategory)
+                .lineLimit(lineLimit)
                 .lineSpacing(lineSpacing ?? 0)
                 .multilineTextAlignment(alignment)
                 .fixedSize(horizontal: false, vertical: true)
@@ -140,7 +142,8 @@ public extension Text {
         isSelectable: Bool = false,
         strikethrough: Bool = false,
         kerning: CGFloat = 0,
-        linkAction: @escaping TextLink.Action = { _, _ in }
+        linkAction: @escaping TextLink.Action = { _, _ in },
+        lineLimit: Int = 0
     ) {
         self.content = content
         self.size = size
@@ -154,6 +157,7 @@ public extension Text {
         self.strikethrough = strikethrough
         self.kerning = kerning
         self.linkAction = linkAction
+        self.lineLimit = lineLimit
     }
 }
 
