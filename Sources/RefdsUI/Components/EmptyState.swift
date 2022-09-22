@@ -1,0 +1,113 @@
+import SwiftUI
+
+public struct EmptyState: View {
+
+    let title: String
+    let description: String
+    let illustration: Illustration.Image
+    let action: Action
+
+    public var body: some View {
+        VStack(spacing: .medium) {
+            Illustration(illustration, layout: .frame(maxHeight: 120))
+                .padding(.top, .large)
+        
+            texts
+            
+            actions
+        }
+        .accessibilityElement(children: .contain)
+    }
+    
+    @ViewBuilder var texts: some View {
+        if title.isEmpty == false || description.isEmpty == false {
+            VStack(spacing: .xSmall) {
+                Heading(title, style: .title4, alignment: .center)
+                    .accessibility(.emptyStateTitle)
+                Text(description, color: .inkLight, alignment: .center)
+                    .accessibility(.emptyStateDescription)
+            }
+        }
+    }
+    
+    @ViewBuilder var actions: some View {
+        switch action {
+            case .none:
+                EmptyView()
+            case .button(let label, let style, let action):
+                Button(label, style: style, action: action)
+                    .idealSize()
+                    .accessibility(.emptyStateButton)
+        }
+    }
+}
+
+// MARK: - Types
+public extension EmptyState {
+    
+    enum Action {
+        case none
+        case button(_ label: String, style: Button.Style = .primary, action: () -> Void = {})
+    }
+}
+
+// MARK: - Inits
+public extension EmptyState {
+    
+    init(
+        _ title: String = "",
+        description: String = "",
+        illustration: Illustration.Image,
+        action: Action = .none
+    ) {
+        self.title = title
+        self.description = description
+        self.illustration = illustration
+        self.action = action
+    }
+}
+
+// MARK: - Previews
+struct EmptyStatePreviews: PreviewProvider {
+
+    static let title = "Sorry, we couldn't find that connection."
+    static let description = "Try changing up your search a bit. We'll try harder next time."
+    static let button = "Adjust search"
+
+    static var previews: some View {
+        PreviewWrapper {
+            standalone
+            subtle
+            noAction
+        }
+        .padding(.medium)
+        .previewLayout(.sizeThatFits)
+    }
+
+    static var storybook: some View {
+        VStack(spacing: .xxLarge) {
+            standalone
+            Separator()
+            subtle
+            Separator()
+            noAction
+        }
+    }
+
+    static var standalone: some View {
+        EmptyState(title, description: description, illustration: .noResults, action: .button(button))
+    }
+    
+    static var subtle: some View {
+        EmptyState(title, description: description, illustration: .error404, action: .button(button, style: .primarySubtle))
+    }
+    
+    static var noAction: some View {
+        EmptyState(title, description: description, illustration: .offline)
+    }
+
+    static var snapshot: some View {
+        standalone
+            .padding(.medium)
+    }
+}
