@@ -16,6 +16,7 @@ public struct TabBarItemModel: Identifiable {
 }
 
 public struct TabBar: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var color: Color = .whiteDarker
     @State var selectedX: CGFloat = 0
     @State var x: [CGFloat] = [0, 0, 0, 0]
@@ -35,7 +36,7 @@ public struct TabBar: View {
             }
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity, maxHeight: 96)
-            .background(Color.whiteDarker)
+            .background(colorScheme == .dark ? Color.whiteDarker : Color.whiteActive)
             .overlay(
                 Rectangle()
                     .fill(color)
@@ -45,7 +46,7 @@ public struct TabBar: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .offset(x: selectedX)
             )
-            .backgroundStyle(cornerRadius: BorderRadius.large)
+            .backgroundStyle(cornerRadius: BorderRadius.medium)
             .frame(maxHeight: .infinity, alignment: .bottom)
             .edgesIgnoringSafeArea(.bottom)
         }
@@ -87,7 +88,7 @@ public struct TabBar: View {
             })
             .frame(width: 44)
             .foregroundColor(selectedTabIndex == tab.selection ? .primary : .secondary)
-            .blendMode(selectedTabIndex == tab.selection ? .normal : .overlay)
+            .opacity(selectedTabIndex == tab.selection ? 1 : 0.6)
             
             Spacer()
         }
