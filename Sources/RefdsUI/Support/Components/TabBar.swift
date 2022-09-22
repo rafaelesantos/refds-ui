@@ -20,14 +20,14 @@ public struct TabBar: View {
     @State var color: Color = .whiteDarker
     @State var selectedX: CGFloat = 0
     @State var x: [CGFloat] = [0, 0, 0, 0]
-    @State public var selectedTabIndex: Int = 0
+    @Binding public var selectedTabIndex: Int
     public var tab: TabBarItemModel?
     public var tabs: [TabBarItemModel] = []
     
-    public init(tab: TabBarItemModel, tabs: [TabBarItemModel], selectedTabIndex: Int) {
+    public init(tab: TabBarItemModel, tabs: [TabBarItemModel], selectedTabIndex: Binding<Int>) {
         self.tab = tab
         self.tabs = tabs
-        self.selectedTabIndex = selectedTabIndex
+        self._selectedTabIndex = selectedTabIndex
     }
     
     public var body: some View {
@@ -98,6 +98,7 @@ public struct TabBar: View {
 }
 
 struct TabBar_Previews: PreviewProvider {
+    @State static var helperIndex: Int = 0
     static var previews: some View {
         TabBar(
             tab: TabBarItemModel(name: "Products", icon: .shopping, color: .greenNormal, selection: 0),
@@ -105,7 +106,7 @@ struct TabBar_Previews: PreviewProvider {
                 TabBarItemModel(name: "Products", icon: .shopping, color: .greenNormal, selection: 0),
                 TabBarItemModel(name: "Cart", icon: .baggageSet, color: .orangeNormal, selection: 1)
             ],
-            selectedTabIndex: 0
+            selectedTabIndex: $helperIndex
         )
     }
 }
