@@ -27,7 +27,15 @@ let package = Package(
     targets: [
         .target(
             name: "RefdsUI",
-            dependencies: []
+            resources: [
+                .copy("Foundation/Icons/Icons.ttf"),
+                .copy("Foundation/Typography/Moderat-Thin.ttf"),
+                .copy("Foundation/Typography/Moderat-Light.ttf"),
+                .copy("Foundation/Typography/Moderat-Regular.ttf"),
+                .copy("Foundation/Typography/Moderat-Medium.ttf"),
+                .copy("Foundation/Typography/Moderat-Bold.ttf"),
+                .copy("Foundation/Typography/Moderat-Black.ttf")
+            ]
         ),
         .testTarget(
             name: "RefdsUITests",
