@@ -7,12 +7,12 @@ public extension Font {
     static let refdsUIIconFontName = "orbit-icons"
 
     static var refdsUIFonts: [Font.Weight: URL?] = [
-        .thin: Bundle.current.url(forResource: "Moderat-Mono-Thin.ttf", withExtension: nil),
-        .light: Bundle.current.url(forResource: "Moderat-Mono-Light.ttf", withExtension: nil),
-        .regular: Bundle.current.url(forResource: "Moderat-Mono-Regular.ttf", withExtension: nil),
-        .medium: Bundle.current.url(forResource: "Moderat-Mono-Medium.ttf", withExtension: nil),
-        .bold: Bundle.current.url(forResource: "Moderat-Mono-Bold.ttf", withExtension: nil),
-        .black: Bundle.current.url(forResource: "Moderat-Mono-Black.ttf", withExtension: nil)
+        .thin: Bundle.current.url(forResource: "Moderat-Thin.ttf", withExtension: nil),
+        .light: Bundle.current.url(forResource: "Moderat-Light.ttf", withExtension: nil),
+        .regular: Bundle.current.url(forResource: "Moderat-Regular.ttf", withExtension: nil),
+        .medium: Bundle.current.url(forResource: "Moderat-Medium.ttf", withExtension: nil),
+        .bold: Bundle.current.url(forResource: "Moderat-Bold.ttf", withExtension: nil),
+        .black: Bundle.current.url(forResource: "Moderat-Black.ttf", withExtension: nil)
     ]
 
     static func refdsUI(size: CGFloat, scaledSize: CGFloat, weight: Weight = .regular, style: Font.TextStyle = .body) -> Font {
