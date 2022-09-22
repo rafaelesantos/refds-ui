@@ -510,10 +510,6 @@ struct InputFieldLivePreviews: PreviewProvider {
         @State var textValue = "12"
         @State var intValue = 0
 
-        init() {
-            Font.registerRefdsUIFonts()
-        }
-
         var body: some View {
             ScrollView {
                 VStack(alignment: .leading, spacing: .medium) {

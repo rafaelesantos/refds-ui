@@ -9,7 +9,6 @@ struct PreviewWrapper<Content: View>: View {
     }
 
     init(@ViewBuilder content: () -> Content) {
-        Font.registerRefdsUIFonts()
         self.content = content()
     }
 }

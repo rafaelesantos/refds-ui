@@ -1,7 +1,14 @@
 import UIKit
 import SwiftUI
 
-var refdsUIFontNames: [Font.Weight: String] = [:]
+var refdsUIFontNames: [Font.Weight: String] {
+    var fonts = [Font.Weight: String]()
+    for case let (weight, url?) in Font.refdsUIFonts {
+        guard let font = Font.registerFont(at: url) else { continue }
+        fonts[weight] = font.postScriptName as String?
+    }
+    return fonts
+}
 
 public extension Font {
     static let refdsUIIconFontName = "orbit-icons"
@@ -31,19 +38,6 @@ public extension Font {
 
     static func refdsUIIcon(size: CGFloat, style: Font.TextStyle = .body) -> Font {
         customFont(refdsUIIconFontName, size: size, style: style)
-    }
-
-    static func registerRefdsUIFonts() {
-
-        if let iconsFontURL = Bundle.current.url(forResource: "Icons.ttf", withExtension: nil) {
-            _ = registerFont(at: iconsFontURL)
-        }
-
-        for case let (weight, url?) in refdsUIFonts {
-            guard let font = registerFont(at: url) else { continue }
-
-            refdsUIFontNames[weight] = font.postScriptName as String?
-        }
     }
 
     static func registerFont(at url: URL) -> CGFont? {

@@ -6,7 +6,6 @@ private class CurrentBundleFinder {}
 public extension Bundle {
     static var current: Bundle = {
         let bundleName = "RefdsUI_RefdsUI"
-        Font.registerRefdsUIFonts()
         let candidates = [
             main.resourceURL,
             Bundle(for: CurrentBundleFinder.self).resourceURL,
