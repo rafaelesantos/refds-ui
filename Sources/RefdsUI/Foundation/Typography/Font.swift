@@ -4,7 +4,7 @@ import SwiftUI
 var refdsUIFontNames: [Font.Weight: String] = [:]
 
 public extension Font {
-    static let refdsUIIconFontName = "refdsUI-icons"
+    static let refdsUIIconFontName = "orbit-icons"
 
     static var refdsUIFonts: [Font.Weight: URL?] = [
         .thin: Bundle.current.url(forResource: "Moderat-Thin.ttf", withExtension: nil),
