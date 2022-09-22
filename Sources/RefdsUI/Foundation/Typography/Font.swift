@@ -3,10 +3,16 @@ import SwiftUI
 
 var refdsUIFontNames: [Font.Weight: String] {
     var fonts = [Font.Weight: String]()
+    
+    if let iconsFontURL = Bundle.current.url(forResource: "Icons.ttf", withExtension: nil) {
+        _ = Font.registerFont(at: iconsFontURL)
+    }
+    
     for case let (weight, url?) in Font.refdsUIFonts {
         guard let font = Font.registerFont(at: url) else { continue }
         fonts[weight] = font.postScriptName as String?
     }
+    
     return fonts
 }
 
