@@ -132,7 +132,7 @@ extension String {
     }
 }
 
-extension UIApplication {
+public extension UIApplication {
 
     var firstKeyWindow: UIWindow? {
         windows.first { $0.isKeyWindow }
