@@ -6,6 +6,13 @@ public struct TabBarItemModel: Identifiable {
     public var icon: Icon.Symbol
     public var color: Color
     public var selection: Int
+    
+    public init(name: String, icon: Icon.Symbol, color: Color, selection: Int) {
+        self.name = name
+        self.icon = icon
+        self.color = color
+        self.selection = selection
+    }
 }
 
 public struct TabBar: View {
@@ -15,6 +22,11 @@ public struct TabBar: View {
     @State public var selectedTabIndex: Int = 0
     public var tab: TabBarItemModel?
     public var tabs: [TabBarItemModel] = []
+    
+    public init(tab: TabBarItemModel, tabs: [TabBarItemModel]) {
+        self.tab = tab
+        self.tabs = tabs
+    }
     
     public var body: some View {
         GeometryReader { proxy in
