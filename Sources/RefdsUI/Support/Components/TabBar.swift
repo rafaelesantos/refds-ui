@@ -24,9 +24,10 @@ public struct TabBar: View {
     public var tab: TabBarItemModel?
     public var tabs: [TabBarItemModel] = []
     
-    public init(tab: TabBarItemModel, tabs: [TabBarItemModel]) {
+    public init(tab: TabBarItemModel, tabs: [TabBarItemModel], selectedTabIndex: Int) {
         self.tab = tab
         self.tabs = tabs
+        self.selectedTabIndex = selectedTabIndex
     }
     
     public var body: some View {
@@ -103,7 +104,8 @@ struct TabBar_Previews: PreviewProvider {
             tabs: [
                 TabBarItemModel(name: "Products", icon: .shopping, color: .greenNormal, selection: 0),
                 TabBarItemModel(name: "Cart", icon: .baggageSet, color: .orangeNormal, selection: 1)
-            ]
+            ],
+            selectedTabIndex: 0
         )
     }
 }
