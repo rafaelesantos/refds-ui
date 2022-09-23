@@ -1,20 +1,7 @@
 import UIKit
 import SwiftUI
 
-var refdsUIFontNames: [Font.Weight: String] {
-    var fonts = [Font.Weight: String]()
-    
-    if let iconsFontURL = Bundle.current.url(forResource: "Icons.ttf", withExtension: nil) {
-        _ = Font.registerFont(at: iconsFontURL)
-    }
-    
-    for case let (weight, url?) in Font.refdsUIFonts {
-        guard let font = Font.registerFont(at: url) else { continue }
-        fonts[weight] = font.postScriptName as String?
-    }
-    
-    return fonts
-}
+var refdsUIFontNames: [Font.Weight: String] = [:]
 
 public extension Font {
     static let refdsUIIconFontName = "orbit-icons"
@@ -44,6 +31,19 @@ public extension Font {
 
     static func refdsUIIcon(size: CGFloat, style: Font.TextStyle = .body) -> Font {
         customFont(refdsUIIconFontName, size: size, style: style)
+    }
+
+    static func registerRefdsUIFonts() {
+
+        if let iconsFontURL = Bundle.current.url(forResource: "Icons.ttf", withExtension: nil) {
+            _ = registerFont(at: iconsFontURL)
+        }
+
+        for case let (weight, url?) in refdsUIFonts {
+            guard let font = registerFont(at: url) else { continue }
+
+            refdsUIFontNames[weight] = font.postScriptName as String?
+        }
     }
 
     static func registerFont(at url: URL) -> CGFont? {
@@ -95,7 +95,7 @@ public extension ContentSizeCategory {
             case .extraSmall:                           return 0.8
             case .small:                                return 0.85
             case .medium:                               return 0.9
-            case .large:                                return 1        
+            case .large:                                return 1
             case .extraLarge:                           return 1.1
             case .extraExtraLarge:                      return 1.2
             case .extraExtraExtraLarge:                 return 1.35
