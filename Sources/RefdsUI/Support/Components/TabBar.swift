@@ -20,14 +20,20 @@ public struct TabBar: View {
     @State var color: Color = .whiteDarker
     @State var selectedX: CGFloat = 0
     @State var x: [CGFloat] = [0, 0, 0, 0]
-    @Binding public var selectedTabIndex: Int
+    
     public var tab: TabBarItemModel?
     public var tabs: [TabBarItemModel] = []
+    private var completion: ((Int) -> Void)?
     
-    public init(tab: TabBarItemModel, tabs: [TabBarItemModel], selectedTabIndex: Binding<Int>) {
+    @State private var selectedIndex: Int = 0 {
+        didSet { completion?(selectedIndex) }
+    }
+    
+    public init(tab: TabBarItemModel, tabs: [TabBarItemModel], selectedIndex: Int, completion: @escaping (Int) -> Void) {
         self.tab = tab
         self.tabs = tabs
-        self._selectedTabIndex = selectedTabIndex
+        self.selectedIndex = selectedIndex
+        self.completion = completion
     }
     
     public var body: some View {
@@ -62,14 +68,14 @@ public struct TabBar: View {
         ForEach(Array(tabs.enumerated()), id: \.offset) { index, tab in
             if index == 0 { Spacer() }
             SwiftUI.Button(action: {
-                selectedTabIndex = index
+                selectedIndex = index
                 withAnimation(.spring()) {
                     selectedX = x[index]
                     color = tab.color
                 }
             }, label: {
                 VStack(spacing: .xxSmall) {
-                    Icon(tab.icon, size: .custom(29), color: selectedTabIndex == index ? tab.color.opacity(0.6) : nil)
+                    Icon(tab.icon, size: .custom(29), color: selectedIndex == index ? tab.color.opacity(0.6) : nil)
                     Text(tab.name)
                         .frame(width: 88)
                         .lineLimit(1)
@@ -81,7 +87,7 @@ public struct TabBar: View {
                             .preference(key: TabPreferenceKey.self, value: offset)
                             .onPreferenceChange(TabPreferenceKey.self) { value in
                                 x[index] = value
-                                if selectedTabIndex == tab.selection {
+                                if selectedIndex == tab.selection {
                                     selectedX = x[index]
                                 }
                             }
@@ -89,8 +95,8 @@ public struct TabBar: View {
                 )
             })
             .frame(width: 44)
-            .foregroundColor(selectedTabIndex == tab.selection ? .primary : .secondary)
-            .opacity(selectedTabIndex == tab.selection ? 1 : 0.6)
+            .foregroundColor(selectedIndex == tab.selection ? .primary : .secondary)
+            .opacity(selectedIndex == tab.selection ? 1 : 0.6)
             
             Spacer()
         }
@@ -106,8 +112,8 @@ struct TabBar_Previews: PreviewProvider {
                 TabBarItemModel(name: "Products", icon: .shopping, color: .greenNormal, selection: 0),
                 TabBarItemModel(name: "Cart", icon: .baggageSet, color: .orangeNormal, selection: 1)
             ],
-            selectedTabIndex: $helperIndex
-        )
+            selectedIndex: helperIndex
+        ) { _ in }
     }
 }
 
