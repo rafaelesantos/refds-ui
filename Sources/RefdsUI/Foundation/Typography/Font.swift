@@ -6,13 +6,22 @@ var refdsUIFontNames: [Font.Weight: String] = [:]
 public extension Font {
     static let refdsUIIconFontName = "orbit-icons"
 
-    static var refdsUIFonts: [Font.Weight: URL?] = [
+    static var refdsUIFonts: [Font.Weight: URL?] =  [
         .thin: Bundle.current.url(forResource: "Moderat-Thin.ttf", withExtension: nil),
         .light: Bundle.current.url(forResource: "Moderat-Light.ttf", withExtension: nil),
         .regular: Bundle.current.url(forResource: "Moderat-Regular.ttf", withExtension: nil),
         .medium: Bundle.current.url(forResource: "Moderat-Medium.ttf", withExtension: nil),
         .bold: Bundle.current.url(forResource: "Moderat-Bold.ttf", withExtension: nil),
         .black: Bundle.current.url(forResource: "Moderat-Black.ttf", withExtension: nil)
+    ]
+    
+    static var refdsUIMonoFonts: [Font.Weight: URL?] =  [
+        .thin: Bundle.current.url(forResource: "Moderat-Mono-Thin.ttf", withExtension: nil),
+        .light: Bundle.current.url(forResource: "Moderat-Mono-Light.ttf", withExtension: nil),
+        .regular: Bundle.current.url(forResource: "Moderat-Mono-Regular.ttf", withExtension: nil),
+        .medium: Bundle.current.url(forResource: "Moderat-Mono-Medium.ttf", withExtension: nil),
+        .bold: Bundle.current.url(forResource: "Moderat-Mono-Bold.ttf", withExtension: nil),
+        .black: Bundle.current.url(forResource: "Moderat-Mono-Black.ttf", withExtension: nil)
     ]
 
     static func refdsUI(size: CGFloat, scaledSize: CGFloat, weight: Weight = .regular, style: Font.TextStyle = .body) -> Font {
@@ -33,13 +42,13 @@ public extension Font {
         customFont(refdsUIIconFontName, size: size, style: style)
     }
 
-    static func registerRefdsUIFonts() {
+    static func registerRefdsUIFonts(isMono: Bool) {
 
         if let iconsFontURL = Bundle.current.url(forResource: "Icons.ttf", withExtension: nil) {
             _ = registerFont(at: iconsFontURL)
         }
 
-        for case let (weight, url?) in refdsUIFonts {
+        for case let (weight, url?) in isMono ? refdsUIMonoFonts : refdsUIFonts {
             guard let font = registerFont(at: url) else { continue }
 
             refdsUIFontNames[weight] = font.postScriptName as String?

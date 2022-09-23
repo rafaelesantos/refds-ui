@@ -34,7 +34,13 @@ let package = Package(
                 .copy("Foundation/Typography/Moderat-Regular.ttf"),
                 .copy("Foundation/Typography/Moderat-Medium.ttf"),
                 .copy("Foundation/Typography/Moderat-Bold.ttf"),
-                .copy("Foundation/Typography/Moderat-Black.ttf")
+                .copy("Foundation/Typography/Moderat-Black.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Thin.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Light.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Regular.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Medium.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Bold.ttf"),
+                .copy("Foundation/Typography/Moderat-Mono-Black.ttf")
             ]
         ),
         .testTarget(
