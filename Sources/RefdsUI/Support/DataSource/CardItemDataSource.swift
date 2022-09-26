@@ -5,11 +5,19 @@ public protocol CardItemDataSource {
 }
 
 public struct CardItemViewModel: Codable {
-    var title: String?
-    var description: String?
-    var badges: [String]?
-    var tags: [String]?
-    var style: CardItemStyle
+    public var title: String?
+    public var description: String?
+    public var badges: [String]?
+    public var tags: [String]?
+    public var style: CardItemStyle
+    
+    public init(title: String? = nil, description: String? = nil, badges: [String]? = nil, tags: [String]? = nil, style: CardItemStyle) {
+        self.title = title
+        self.description = description
+        self.badges = badges
+        self.tags = tags
+        self.style = style
+    }
 }
 
 public enum CardItemStyle: Int, Codable {
