@@ -1,30 +1,30 @@
 import SwiftUI
 
 public struct CardItem: View {
-    private var viewModel: CardItemViewModel
+    private var dataSource: CardItemDataSource
     private var completion: ((CardItemViewModel) -> Void)?
     
-    public init(viewModel: CardItemViewModel, completion: ((CardItemViewModel) -> Void)? = nil) {
-        self.viewModel = viewModel
+    public init(dataSource: CardItemDataSource, completion: ((CardItemViewModel) -> Void)? = nil) {
+        self.dataSource = dataSource
         self.completion = completion
     }
     
     public var body: some View {
         Tile {
             VStack(alignment: .leading, spacing: .small) {
-                if let title = viewModel.title, !title.isEmpty {
+                if let title = dataSource.cardItem.title, !title.isEmpty {
                     self.title(title)
                 }
                 
-                if let badges = viewModel.badges, !badges.isEmpty {
+                if let badges = dataSource.cardItem.badges, !badges.isEmpty {
                     self.badges(badges)
                 }
                 
-                if let tags = viewModel.tags, !tags.isEmpty {
+                if let tags = dataSource.cardItem.tags, !tags.isEmpty {
                     self.tags(tags)
                 }
                 
-                if let description = viewModel.description, !description.isEmpty {
+                if let description = dataSource.cardItem.description, !description.isEmpty {
                     self.description(description)
                 }
             }
@@ -65,12 +65,16 @@ public struct CardItem: View {
 }
 
 struct CardItem_Previews: PreviewProvider {
+    private struct CardItemModel: CardItemDataSource {
+        var cardItem: CardItemViewModel
+    }
+    
     static var previews: some View {
         ScrollView {
-            CardItem(viewModel: .init(title: "Any Title", description: "Any description here, because is just to test", badges: ["any-badge", "any-other"], style: .productBasicInfo))
+            CardItem(dataSource: CardItemModel(cardItem: .init(title: "Any Title", description: "Any description here, because is just to test", badges: ["any-badge", "any-other"], style: .productBasicInfo)))
                 .applyPadding()
             
-            CardItem(viewModel: .init(title: "Any Title", description: "Any description here, because is just to test", tags: ["any-tag", "any-tag"], style: .productBasicInfo))
+            CardItem(dataSource: CardItemModel(cardItem: .init(title: "Any Title", description: "Any description here, because is just to test", tags: ["any-tag", "any-tag"], style: .productBasicInfo)))
                 .applyPadding()
         }
     }
